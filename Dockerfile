@@ -1,20 +1,6 @@
 FROM selenium/standalone-chrome
 USER root
 
-RUN apt-get update && \
-      apt-get install -y --force-yes --no-install-recommends \
-      curl \
-      build-essential \
-      ruby \
-      netcat-openbsd && \
-      apt-get clean all
-
-# =========================================================================
-# Install Ruby Gems
-# =========================================================================
-
-RUN gem install sass
-
 # =========================================================================
 # Install NodeJS
 # gpg keys listed at https://github.com/nodejs/node
@@ -37,13 +23,18 @@ done
 ENV NPM_CONFIG_LOGLEVEL warn
 ENV NODE_VERSION 6.9.4
 
-curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
-&& curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
-&& gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
-&& grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-&& tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
-&& rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
-&& apt-get purge -y --auto-remove $buildDeps \
+RUN apt-get update && \
+    apt-get install -y --force-yes --no-install-recommends \
+    curl \
+    build-essential \
+    ruby \
+    netcat-openbsd \
+    && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+    && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+    && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+    && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+    && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+    && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 CMD [ "node" ]
 
@@ -54,5 +45,11 @@ CMD [ "node" ]
 ENV PHANTOMJS_VERSION 2.1.1
 
 RUN npm install -g phantomjs-prebuilt
+
+# =========================================================================
+# Install Ruby Gems
+# =========================================================================
+
+RUN gem install sass
 
 CMD ["/bin/bash"]
