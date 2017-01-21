@@ -1,19 +1,12 @@
 FROM selenium/standalone-chrome
 USER root
 
-RUN set -ex \
-    && buildDeps=' \
-    bison \
-    libgdbm-dev \
-    ruby \
-    ' \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-    $buildDeps \
-    curl \
-    build-essential \
-    netcat-openbsd \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+      apt-get install -y --force-yes --no-install-recommends \
+      curl \
+      build-essential \
+      netcat-openbsd && \
+      apt-get clean all
 
 # =========================================================================
 # Install Ruby Environment
@@ -33,7 +26,17 @@ ENV RUBYGEMS_VERSION 2.6.2
 
 # some of ruby's build scripts are written in ruby
 # we purge this later to make sure our final image uses what we just built
-RUN curl -fSL -o ruby.tar.gz "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.gz" \
+RUN set -ex \
+    && buildDeps=' \
+    bison \
+    libgdbm-dev \
+    autoconf \
+    ruby \
+    ' \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends $buildDeps \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fSL -o ruby.tar.gz "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.gz" \
     && echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.gz" | sha256sum -c - \
     && mkdir -p /usr/src/ruby \
     && tar -xzf ruby.tar.gz -C /usr/src/ruby --strip-components=1 \
@@ -45,7 +48,6 @@ RUN curl -fSL -o ruby.tar.gz "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ru
     && make -j"$(nproc)" \
     && make install \
     && apt-get purge -y --auto-remove $buildDeps \
-    && apt-get clean all \
     && gem update --system $RUBYGEMS_VERSION \
     && rm -r /usr/src/ruby
 
