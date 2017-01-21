@@ -1,6 +1,14 @@
 FROM selenium/standalone-chrome
 USER root
 
+RUN apt-get update && \
+    apt-get install -y --force-yes --no-install-recommends \
+    curl \
+    build-essential \
+    netcat-openbsd && \
+    apt-get clean all && \
+    rm -rf /var/lib/apt/lists/*
+
 # =========================================================================
 # Install Ruby Environment
 # =========================================================================
@@ -48,12 +56,7 @@ RUN set -ex \
 ENV NPM_CONFIG_LOGLEVEL warn
 ENV NODE_VERSION 6.9.4
 
-RUN apt-get update \
-  && apt-get install -y --force-yes --no-install-recommends \
-    curl \
-    build-essential \
-    netcat \
-  && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
   && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
   && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
@@ -61,5 +64,12 @@ RUN apt-get update \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 CMD [ "node" ]
+
+# =========================================================================
+# Install NPM modules
+# =========================================================================
+ENV PHANTOMJS_VERSION 1.9.8
+
+RUN npm install -g phantomjs-prebuilt
 
 CMD ["/bin/bash"]
