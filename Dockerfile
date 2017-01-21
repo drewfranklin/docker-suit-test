@@ -32,6 +32,7 @@ RUN set -ex \
 		libgdbm-dev \
 		ruby \
 	' \
+	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& curl -fSL -o ruby.tar.gz "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.gz" \
@@ -47,7 +48,7 @@ RUN set -ex \
 	&& make install \
 	&& apt-get purge -y --auto-remove $buildDeps \
 	&& gem update --system $RUBYGEMS_VERSION \
-	&& rm -r /usr/src/ruby
+&& rm -r /usr/src/ruby
 
 ENV BUNDLER_VERSION 1.11.2
 
