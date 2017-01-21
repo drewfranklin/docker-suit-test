@@ -7,6 +7,7 @@ RUN apt-get update && \
       build-essential \
       autoconf \
       zlib1g-dev \
+      libssl-dev \
       netcat-openbsd && \
       apt-get clean all
 
