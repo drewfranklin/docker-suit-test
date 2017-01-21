@@ -107,7 +107,7 @@ CMD [ "node" ]
 # =========================================================================
 # Install NPM modules
 # =========================================================================
-ENV PHANTOMJS_VERSION 1.9.8
+ENV PHANTOMJS_VERSION 2.1.1
 
 RUN npm install -g phantomjs-prebuilt
 
