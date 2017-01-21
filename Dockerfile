@@ -27,6 +27,7 @@ RUN apt-get update \
   && apt-get install -y --force-yes --no-install-recommends \
     curl \
     build-essential \
+    netcat \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
   && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
