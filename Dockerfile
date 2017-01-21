@@ -2,6 +2,31 @@ FROM selenium/standalone-chrome
 USER root
 
 # =========================================================================
+# Install Ruby Environment
+# =========================================================================
+ENV RUBY_VERSION 2.3.0
+
+ADD http://cache.ruby-lang.org/pub/ruby/$RUBY_BRANCH/ruby-$RUBY_VERSION.tar.gz /tmp/
+
+RUN cd /tmp && \
+  tar -xzf ruby-$RUBY_VERSION.tar.gz && \
+  cd ruby-$RUBY_VERSION && \
+  ./configure && \
+  make && \
+  make install && \
+  cd .. && \
+  rm -rf ruby-$RUBY_VERSION && \
+  rm -f ruby-$RUBY_VERSION.tar.gz
+
+RUN gem install bundler --no-ri --no-rdoc
+
+# =========================================================================
+# Install Ruby Gems
+# =========================================================================
+
+RUN gem install sass
+
+# =========================================================================
 # Install NodeJS
 # gpg keys listed at https://github.com/nodejs/node
 # =========================================================================
