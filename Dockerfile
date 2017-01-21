@@ -5,6 +5,8 @@ RUN apt-get update && \
       apt-get install -y --force-yes --no-install-recommends \
       curl \
       build-essential \
+      autoconf \
+      zlib1g-dev \
       netcat-openbsd && \
       apt-get clean all
 
@@ -30,7 +32,6 @@ RUN set -ex \
     && buildDeps=' \
     bison \
     libgdbm-dev \
-    autoconf \
     ruby \
     ' \
     && apt-get update \
