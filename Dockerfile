@@ -6,8 +6,7 @@ RUN apt-get update && \
     curl \
     build-essential \
     netcat-openbsd && \
-    apt-get clean all && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean all
 
 # =========================================================================
 # Install Ruby Environment
