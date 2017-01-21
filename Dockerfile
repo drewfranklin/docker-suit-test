@@ -53,3 +53,6 @@ RUN npm install -g phantomjs-prebuilt
 RUN gem install sass
 
 CMD ["/bin/bash"]
+
+# Expose ports.
+EXPOSE 5901
