@@ -1,4 +1,4 @@
-FROM selenium/standalone-chrome
+FROM selenium/standalone-chrome-debug
 USER root
 
 # =========================================================================
@@ -42,7 +42,7 @@ CMD [ "node" ]
 # Install NPM modules
 # =========================================================================
 
-ENV PHANTOMJS_VERSION 2.1.1
+ENV PHANTOMJS_VERSION 1.9.8
 
 RUN npm install -g phantomjs-prebuilt
 
