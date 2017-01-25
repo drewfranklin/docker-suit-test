@@ -42,9 +42,7 @@ CMD [ "node" ]
 # Install NPM modules
 # =========================================================================
 
-ENV PHANTOMJS_VERSION 1.9.8
-
-RUN npm install -g phantomjs-prebuilt
+RUN npm install -g phantomjs
 
 # =========================================================================
 # Install Ruby Gems
