@@ -49,7 +49,5 @@ RUN gem install sass
 
 CMD ["/bin/bash"]
 
-USER seluser
-
 # Expose ports.
 EXPOSE 5901
