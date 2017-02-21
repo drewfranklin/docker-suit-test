@@ -39,15 +39,13 @@ RUN apt-get update && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
 
-CMD [ "node" ]
-
 # =========================================================================
 # Install Ruby Gems
 # =========================================================================
 
 RUN gem install sass
 
-CMD ["/bin/bash"]
-
 # Expose ports.
 EXPOSE 5901
+
+CMD ["/opt/bin/entry_point.sh"]
