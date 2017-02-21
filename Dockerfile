@@ -1,5 +1,7 @@
 FROM selenium/hub
 
+USER root
+
 # =========================================================================
 # Install NodeJS
 # gpg keys listed at https://github.com/nodejs/node
@@ -46,6 +48,8 @@ CMD [ "node" ]
 RUN gem install sass
 
 CMD ["/bin/bash"]
+
+USER seluser
 
 # Expose ports.
 EXPOSE 5901
