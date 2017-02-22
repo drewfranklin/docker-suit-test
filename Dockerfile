@@ -1,4 +1,4 @@
-FROM selenium/hub
+FROM selenium/standalone-chrome
 
 USER root
 
