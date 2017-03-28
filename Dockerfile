@@ -43,7 +43,7 @@ RUN apt-get update && \
 # Install Ruby Gems
 # =========================================================================
 
-RUN gem install sass
+RUN gem install sass bundler
 
 # Expose ports.
 EXPOSE 5901
