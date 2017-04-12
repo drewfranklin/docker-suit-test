@@ -28,6 +28,7 @@ RUN apt-get update && \
     apt-get install -y --force-yes --no-install-recommends \
     curl \
     build-essential \
+    rsync \
     ruby \
     netcat-openbsd && \
     curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && \
