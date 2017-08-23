@@ -44,7 +44,7 @@ RUN apt-get update && \
 
 RUN gem install sass bundler
 
-RUN apt-get remove ruby-dev  && \
+RUN apt-get autoremove -y --purge ruby-dev  && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/*
     
