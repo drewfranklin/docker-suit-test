@@ -42,7 +42,7 @@ RUN apt-get update && \
 # Install Ruby Gems
 # =========================================================================
 
-RUN gem install sass bundler
+RUN gem install sass bundler --no-ri --no-rdoc
 
 RUN apt-get autoremove -y --purge ruby-dev  && \
     apt-get clean all && \
