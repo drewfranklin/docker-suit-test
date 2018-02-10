@@ -27,6 +27,7 @@ RUN apt-get update && \
     apt-get install -y --force-yes --no-install-recommends \
     curl \
     build-essential \
+    autoconf \
     rsync \
     ruby \
     ruby-dev \
@@ -41,7 +42,6 @@ RUN apt-get update && \
 # =========================================================================
 # Install Ruby Gems
 # =========================================================================
-RUN gem update --system
 RUN gem install sass bundler --no-ri --no-rdoc
 
 RUN apt-get autoremove -y --purge ruby-dev  && \
