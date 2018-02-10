@@ -28,6 +28,7 @@ RUN apt-get update && \
     curl \
     build-essential \
     autoconf \
+    automake \
     rsync \
     ruby \
     ruby-dev \
