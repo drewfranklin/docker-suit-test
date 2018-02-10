@@ -27,11 +27,10 @@ RUN apt-get update && \
     apt-get install -y --force-yes --no-install-recommends \
     curl \
     build-essential \
-    autoconf \
-    automake \
     rsync \
     ruby \
     ruby-dev \
+    ruby-sass \
     netcat-openbsd && \
     curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && \
     curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" && \
@@ -43,7 +42,7 @@ RUN apt-get update && \
 # =========================================================================
 # Install Ruby Gems
 # =========================================================================
-RUN gem install sass bundler --no-ri --no-rdoc
+RUN gem install bundler --no-ri --no-rdoc
 
 RUN apt-get autoremove -y --purge ruby-dev  && \
     apt-get clean all && \
