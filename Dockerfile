@@ -10,7 +10,7 @@ USER root
 ENV NODE_VERSION 8.9.4
 
 RUN apt-get update && \
-    apt-get install -y --force-yes --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     curl \
     build-essential \
     rsync \
@@ -18,7 +18,7 @@ RUN apt-get update && \
     ruby-dev \
     ruby-sass \
     netcat-openbsd && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -y --force-yes --no-install-recommends \
     nodejs
 
