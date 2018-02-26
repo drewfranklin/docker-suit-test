@@ -7,8 +7,6 @@ USER root
 # gpg keys listed at https://github.com/nodejs/node
 # =========================================================================
 
-ENV NODE_VERSION 8.9.4
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
@@ -18,7 +16,7 @@ RUN apt-get update && \
     ruby-dev \
     ruby-sass \
     netcat-openbsd && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     apt-get install -y --force-yes --no-install-recommends \
     nodejs
 
